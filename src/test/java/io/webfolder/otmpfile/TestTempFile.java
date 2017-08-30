@@ -17,41 +17,51 @@
  */
 package io.webfolder.otmpfile;
 
-import static io.webfolder.otmpfile.TempFile.create;
-import static io.webfolder.otmpfile.TempFile.linkat;
-import static io.webfolder.otmpfile.TempFile.toFileDescriptor;
+import static io.webfolder.otmpfile.SecureTempFile.SUPPORT_O_TMPFILE;
 import static java.io.File.separator;
-import static java.lang.Math.abs;
-import static java.lang.String.valueOf;
 import static java.lang.System.getProperty;
+import static java.nio.file.Files.exists;
 import static java.nio.file.Files.readAllBytes;
+import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 import static java.nio.file.Paths.get;
 
-import java.io.FileDescriptor;
 import java.io.FileOutputStream;
 import java.util.Random;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 public class TestTempFile {
 
     @Test
     public void test() throws Exception {
-        int fd = create(getProperty("java.io.tmpdir"));
-        assertTrue(fd > 0);
-        FileDescriptor descriptor = toFileDescriptor(fd);
-        String tempFile = getProperty("java.io.tmpdir") + separator + abs(new Random().nextInt());
-        String content = valueOf(new Random().nextInt());
-        try (FileOutputStream os = new FileOutputStream(descriptor)) {
-            os.write(content.getBytes());
-            int linkat = linkat(fd, tempFile);
-            if ( linkat != 0 ) {
-                throw new RuntimeException("Can not link file: " + tempFile);
+        assertTrue(SUPPORT_O_TMPFILE);
+
+        SecureTempFile stf = new SecureTempFile();
+
+        byte[] expecteds = "foo".getBytes();
+        byte[] actuals = new byte[] { };
+
+        if (stf.create()) {
+
+            try (FileOutputStream fs = new FileOutputStream(stf.getFileDescriptor())) {
+                fs.write("foo".getBytes());
+            }
+
+            String tempFileName = getProperty("java.io.tmpdir") + separator + new Random().nextInt();
+
+            if (stf.setName(tempFileName)) {
+                assertNotNull(get(tempFileName));
+
+                assertTrue(exists(get(tempFileName), NOFOLLOW_LINKS));
+
+                actuals = readAllBytes(get(tempFileName));
             }
         }
-        assertEquals(content, new String(readAllBytes(get(tempFile))));
+
+        assertArrayEquals(expecteds, actuals);
     }
 }
