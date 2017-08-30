@@ -71,7 +71,7 @@ JNIEXPORT jint JNICALL Java_io_webfolder_otmpfile_TempFile_linkat(JNIEnv *env, j
     if (fd < 0) {
         return -1;
     }
-    snprintf(old_path, PATH_MAX,  "/proc/self/fd/%d", fd);
+    snprintf(old_path, PATH_MAX, "/proc/self/fd/%d", fd);
     const char *c_new_path = (*env)->GetStringUTFChars(env, j_new_path, 0);
     int ret = linkat(AT_FDCWD, old_path, AT_FDCWD, c_new_path, AT_SYMLINK_FOLLOW);
     (*env)->ReleaseStringUTFChars(env, j_new_path, c_new_path);

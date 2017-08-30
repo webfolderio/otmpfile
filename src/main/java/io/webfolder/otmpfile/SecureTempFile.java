@@ -41,6 +41,8 @@ public class SecureTempFile {
 
     private static final byte[] TEMP_FILE_TEST_CONTENT = "https://webfolder.io".getBytes();
 
+    private static final int SUCCESS = 0;
+
     public static final boolean SUPPORT_O_TMPFILE = new SecureTempFile(TEMP_DIR).supportOtmpFile();
 
     private int fd;
@@ -69,7 +71,7 @@ public class SecureTempFile {
                         fs.write(TEMP_FILE_TEST_CONTENT);
                         linkat = linkat(fd, filePath);
                     }
-                    if (linkat > 0) {
+                    if (linkat == SUCCESS) {
                         Path tempFilePath = get(filePath);
                         if (exists(tempFilePath, NOFOLLOW_LINKS) && isRegularFile(tempFilePath, NOFOLLOW_LINKS)) {
                             boolean same = Arrays.equals(readAllBytes(tempFilePath), TEMP_FILE_TEST_CONTENT);
@@ -105,7 +107,7 @@ public class SecureTempFile {
     public boolean setName(String path) {
         if ( fd > 0 && fileDescriptor != null ) {
             int ret = linkat(fd, path);
-            return ret != 0;
+            return ret == SUCCESS;
         }
         return false;
     }
