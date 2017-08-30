@@ -50,16 +50,19 @@ public class TestTempFile {
 
             try (FileOutputStream fs = new FileOutputStream(stf.getFileDescriptor())) {
                 fs.write("foo".getBytes());
-            }
 
-            String tempFileName = getProperty("java.io.tmpdir") + separator + abs(new Random().nextInt());
+                String tempFileName = getProperty("java.io.tmpdir") + separator + abs(new Random().nextInt());
 
-            if (stf.setName(tempFileName)) {
-                assertNotNull(get(tempFileName));
+                boolean renamed = stf.setName(tempFileName);
+                assertTrue(renamed);
 
-                assertTrue(exists(get(tempFileName), NOFOLLOW_LINKS));
+                if (renamed) {
+                    assertNotNull(get(tempFileName));
 
-                actuals = readAllBytes(get(tempFileName));
+                    assertTrue(exists(get(tempFileName), NOFOLLOW_LINKS));
+
+                    actuals = readAllBytes(get(tempFileName));
+                }
             }
         }
 
