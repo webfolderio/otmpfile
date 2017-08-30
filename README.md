@@ -30,7 +30,7 @@ Add the following to your POM's `<dependencies>` tag:
 
 Download
 --------
-[otmpfile-1.0.0.jar](https://search.maven.org/remotecontent?filepath=io/webfolder/otmpfile/1.0.0/otmpfilej-1.0.0.jar)
+[otmpfile-1.0.0.jar](https://search.maven.org/remotecontent?filepath=io/webfolder/otmpfile/1.0.0/otmpfile-1.0.0.jar)
 
 [otmpfile-1.0.0-sources.jar](https://search.maven.org/remotecontent?filepath=io/webfolder/otmpfile/1.0.0/otmpfile-1.0.0-sources.jar)
 
