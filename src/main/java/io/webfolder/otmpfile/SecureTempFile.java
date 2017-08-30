@@ -20,6 +20,7 @@ package io.webfolder.otmpfile;
 import static io.webfolder.otmpfile.TempFile.linkat;
 import static io.webfolder.otmpfile.TempFile.toFileDescriptor;
 import static java.io.File.separator;
+import static java.lang.Integer.parseInt;
 import static java.lang.Long.toHexString;
 import static java.lang.System.getProperty;
 import static java.nio.file.Files.delete;
@@ -28,6 +29,7 @@ import static java.nio.file.Files.isRegularFile;
 import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 import static java.nio.file.Paths.get;
+import static java.util.Locale.ENGLISH;
 
 import java.io.FileDescriptor;
 import java.io.FileOutputStream;
@@ -60,6 +62,23 @@ public class SecureTempFile {
     }
 
     private boolean supportOtmpFile() {
+        String osName = getProperty("os.name").toLowerCase(ENGLISH).trim();
+        if ( ! osName.contains("linux") ) {
+            return false;
+        }
+        String osVersion = getProperty("os.version").toLowerCase(ENGLISH).trim();
+        String[] version = osVersion.split(".");
+        try {
+            int major = parseInt(version[0]);
+            int minor = parseInt(version[1]);
+            if (major <= 2) {
+                return false;
+            } else if (major == 3 && minor <= 10) {
+                return false;
+            }
+        } catch (Throwable t) {
+            return false;
+        }
         try {
             int fd = TempFile.create(path);
             if (fd > 0) {
