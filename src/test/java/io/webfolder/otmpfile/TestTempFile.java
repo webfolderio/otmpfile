@@ -19,6 +19,7 @@ package io.webfolder.otmpfile;
 
 import static io.webfolder.otmpfile.SecureTempFile.SUPPORT_O_TMPFILE;
 import static java.io.File.separator;
+import static java.lang.Math.abs;
 import static java.lang.System.getProperty;
 import static java.nio.file.Files.exists;
 import static java.nio.file.Files.readAllBytes;
@@ -51,7 +52,7 @@ public class TestTempFile {
                 fs.write("foo".getBytes());
             }
 
-            String tempFileName = getProperty("java.io.tmpdir") + separator + new Random().nextInt();
+            String tempFileName = getProperty("java.io.tmpdir") + separator + abs(new Random().nextInt());
 
             if (stf.setName(tempFileName)) {
                 assertNotNull(get(tempFileName));

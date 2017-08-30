@@ -67,7 +67,7 @@ public class SecureTempFile {
             return false;
         }
         String osVersion = getProperty("os.version").toLowerCase(ENGLISH).trim();
-        String[] version = osVersion.split(".");
+        String[] version = osVersion.split("\\.");
         try {
             int major = parseInt(version[0]);
             int minor = parseInt(version[1]);
