@@ -24,15 +24,15 @@ Add the following to your POM's `<dependencies>` tag:
 <dependency>
     <groupId>io.webfolder</groupId>
     <artifactId>otmpfile</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
 </dependency>
 ```
 
 Download
 --------
-[otmpfile-1.0.0.jar](https://search.maven.org/remotecontent?filepath=io/webfolder/otmpfile/1.0.0/otmpfile-1.0.0.jar)
+[otmpfile-1.0.1.jar](https://search.maven.org/remotecontent?filepath=io/webfolder/otmpfile/1.0.1/otmpfile-1.0.1.jar)
 
-[otmpfile-1.0.0-sources.jar](https://search.maven.org/remotecontent?filepath=io/webfolder/otmpfile/1.0.0/otmpfile-1.0.0-sources.jar)
+[otmpfile-1.0.1-sources.jar](https://search.maven.org/remotecontent?filepath=io/webfolder/otmpfile/1.0.1/otmpfile-1.0.1-sources.jar)
 
 
 ### Author
