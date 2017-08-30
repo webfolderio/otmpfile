@@ -67,7 +67,7 @@ JNIEXPORT jobject JNICALL Java_io_webfolder_otmpfile_TempFile_toFileDescriptor(J
 }
 
 JNIEXPORT jint JNICALL Java_io_webfolder_otmpfile_TempFile_linkat(JNIEnv *env, jclass klass, jint fd, jstring j_new_path) {
-	char old_path[PATH_MAX];
+    char old_path[PATH_MAX];
     if (fd < 0) {
         return -1;
     }
