@@ -26,7 +26,7 @@
 #include "io_webfolder_otmpfile_TempFile.h"
 
 #ifndef __O_TMPFILE
-#define __O_TMPFILE	020000000
+#define __O_TMPFILE 020000000
 #endif
 
 #define O_TMPFILE (__O_TMPFILE | O_DIRECTORY)
