@@ -18,22 +18,21 @@
 package io.webfolder.otmpfile;
 
 import static io.webfolder.otmpfile.SecureTempFile.SUPPORT_O_TMPFILE;
+import static io.webfolder.otmpfile.SecureTempFile.TEMP_DIR;
 import static java.io.File.separator;
 import static java.lang.Math.abs;
-import static java.lang.System.getProperty;
 import static java.nio.file.Files.exists;
 import static java.nio.file.Files.readAllBytes;
 import static java.nio.file.LinkOption.NOFOLLOW_LINKS;
 import static java.nio.file.Paths.get;
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.io.FileOutputStream;
 import java.util.Random;
 
 import org.junit.Test;
-
-import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 
 public class TestTempFile {
 
@@ -51,17 +50,17 @@ public class TestTempFile {
             try (FileOutputStream fs = new FileOutputStream(stf.getFileDescriptor())) {
                 fs.write("foo".getBytes());
 
-                String tempFileName = getProperty("java.io.tmpdir") + separator + abs(new Random().nextInt());
+                String tempFilePath = TEMP_DIR + separator + abs(new Random().nextInt());
 
-                boolean renamed = stf.setName(tempFileName);
+                boolean renamed = stf.setName(tempFilePath);
                 assertTrue(renamed);
 
                 if (renamed) {
-                    assertNotNull(get(tempFileName));
+                    assertNotNull(get(tempFilePath));
 
-                    assertTrue(exists(get(tempFileName), NOFOLLOW_LINKS));
+                    assertTrue(exists(get(tempFilePath), NOFOLLOW_LINKS));
 
-                    actuals = readAllBytes(get(tempFileName));
+                    actuals = readAllBytes(get(tempFilePath));
                 }
             }
         }

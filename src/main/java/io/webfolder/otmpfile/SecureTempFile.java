@@ -39,7 +39,7 @@ import java.util.Random;
 
 public class SecureTempFile {
 
-    private static final String TEMP_DIR = getProperty("java.io.tmpdir");
+    public static final String TEMP_DIR = getProperty("java.io.tmpdir");
 
     private static final byte[] TEMP_FILE_TEST_CONTENT = "https://webfolder.io".getBytes();
 

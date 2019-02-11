@@ -3,21 +3,21 @@
  <modelVersion>4.0.0</modelVersion>
  <groupId>io.webfolder</groupId>
  <artifactId>otmpfile</artifactId>
- <version>1.0.3</version>
+ <version>1.1.0</version>
  <name>otmpfile</name>
  <url>https://github.com/webfolderio/otmpfile</url>
  <scm>
   <url>https://github.com/webfolderio/otmpfile.git</url>
  </scm>
  <description>otmpfile - O_TMPFILE backed temporary files for Java</description>
- <inceptionYear>2017</inceptionYear>
+ <inceptionYear>2017, 2019</inceptionYear>
  <organization>
   <name>WebFolder OÜ</name>
   <url>https://webfolder.io</url>
  </organization>
  <licenses>
   <license>
-   <name>GNU Affero General Public License</name>
+   <name>MIT</name>
    <url>https://github.com/webfolderio/otmpfile/blob/master/LICENSE</url>
    <distribution>repo</distribution>
   </license>
